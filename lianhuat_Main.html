@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lian Huat Ironworks & Renovation</title>
+  <style>
+    /* ===== BASIC RESET ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background-color: #f8f8f8;
+      color: #ff1100;
+      line-height: 1.6;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(120deg, #333, #555);
+      font-family: Calibri;
+      text-align: center;
+      padding: 2.5rem 1rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+      color: #ff0000; /* bright red */
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #ddd;
+      margin-top: 0.4rem;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      /*background: url('https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;*/
+      background: url('grille-door.jpg?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      height: 420px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 1rem;
+    }
+
+    .hero-content h2 {
+      font-size: 2rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #f0f0f0;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      max-width: 1100px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    section h2 {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+      position: relative;
+    }
+
+    section h2::after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: #c59d00;
+      display: block;
+      margin: 0.5rem auto 0;
+      border-radius: 3px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about {
+      text-align: center;
+      color: #444;
+      font-size: 1.05rem;
+    }
+
+    .about p {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    /* ===== SERVICES ===== */
+    .services {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+
+    .card h3 {
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+/* ===== GALLERY SECTION ===== */
+.gallery {
+  text-align: center;
+  margin: 3rem auto;
+  max-width: 1100px;
+  padding: 0 1.5rem;
+}
+
+.gallery h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.gallery h2::after {
+  content: "";
+  width: 80px;
+  height: 3px;
+  background: #c59d00;
+  display: block;
+  margin: 0.5rem auto 0;
+  border-radius: 3px;
+}
+
+.gallery-button {
+  margin-top: 1.2rem;
+}
+
+.gallery-button button {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.gallery-button button:hover {
+  background-color: #c20000;
+}
+
+/* Grid layout for images */
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.gallery-container img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery-container img:hover {
+  transform: scale(1.05);
+}
+
+/* ===== LIGHTBOX STYLE ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+  text-align: center;
+}
+
+.lightbox-img {
+  max-width: 90%;
+  max-height: 80vh;
+  margin: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close:hover {
+  color: #ff0000;
+}
+
+    /* ===== CONTACT ===== */
+    .contact {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-top: 4px solid #c59d00;
+    }
+
+    .contact h2 {
+      color: white;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact p {
+      font-size: 1.05rem;
+      margin: 0.3rem 0;
+    }
+
+    /* Combined contact line */
+    .contact-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 0.8rem;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    /* Responsive, well-proportioned icon:
+       - min 28px, preferred 6vw, max 44px */
+    .whatsapp-icon {
+      width: clamp(28px, 6vw, 44px);
+      height: auto;            /* preserve aspect ratio */
+      display: inline-block;
+      vertical-align: middle;
+      object-fit: contain;
+      flex-shrink: 0;          /* avoid shrinking on small containers */
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: #111;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 400px) {
+      .whatsapp-icon { width: 30px; } /* ensure still visible on very small screens */
+      .contact-number { gap: 8px; font-size: 1rem; }
+    }
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.8rem; }
+      .hero-content h2 { font-size: 1.5rem; }
+      .services { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <h1>Lian Huat Ironworks & Renovation</h1>
+    <h1>联发铁厂装修工程</h1>
+    <p>Expert in Metal Grille Doors • Windows • Gates • Awning • Renovation Works</p>
+  </header>
+
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <div class="hero-content">
+      <h2>Secure. Stylish. Built to Last.</h2>
+      <p>Custom-made metal grille doors crafted for durability, safety, and modern appeal.</p>
+    </div>
+  </div>
+
+  <!-- ABOUT SECTION -->
+  <section class="about">
+    <h2>About Us</h2>
+    <p>
+      At <strong>Lian Huat Ironworks & Renovation</strong>, we have over 40 years of experience
+      in fabricating strong, beautiful, and long-lasting metal grille doors, windows, awning and gates.
+      Whether for homes, shops, or offices — we combine solid craftsmanship with modern design
+      to deliver products that keep you safe and stylish.
+    </p>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section>
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="card">
+        <h3>🛠 Custom Metal Grille Doors</h3>
+        <p>We design and build custom grille doors using high-quality steel and powder-coated finishes.</p>
+      </div>
+      <div class="card">
+        <h3>🚪 Gates & Railings</h3>
+        <p>From sliding gates to decorative window grille — our ironworks solutions fit any space or style.</p>
+      </div>
+      <div class="card">
+        <h3>🏠 Renovation Works</h3>
+        <p>We also offer home renovation services including awning and painting works.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY SECTION -->
+<section class="gallery">
+  <h2>Our Work Samples</h2>
+  <div class="gallery-container" id="gallery-container" style="display: none;">
+    <!-- Replace with your actual image paths -->
+    <img src="images/sample1.jpg" alt="Sample 1">
+    <img src="images/sample2.jpg" alt="Sample 2">
+    <img src="images/sample3.jpg" alt="Sample 3">
+    <img src="images/sample4.jpg" alt="Sample 4">
+    <img src="images/sample5.jpg" alt="Sample 5">
+  </div>
+  <div class="gallery-button">
+    <button id="toggleGallery">View Our Work</button>
+  </div>
+</section>
+
+<!-- LIGHTBOX for full image -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-img" id="lightbox-img" alt="Full View">
+</div>
+
+  <!-- CONTACT SECTION -->
+  <div class="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-number">
+      <!-- use external SVG as img; responsive sizing handled by CSS -->
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+        alt="WhatsApp Logo"
+        class="whatsapp-icon"
+      >
+      <span><strong>+6019-2117028 (Mr. Yip)</strong></span>
+    </div>
+    <p>📍 <strong>94A, Jalan Helang Hindik,</strong></p>
+    <p><strong>Kawasan Perindustrian Kepong Baru,</strong></p>
+    <p> <strong>52100 Kuala Lumpur</strong></p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 Lian Huat Ironworks & Renovation. All rights reserved.
+  </footer>
+
+<script>
+  // Toggle gallery visibility
+  const toggleButton = document.getElementById('toggleGallery');
+  const gallery = document.getElementById('gallery-container');
+  toggleButton.addEventListener('click', () => {
+    if (gallery.style.display === 'none') {
+      gallery.style.display = 'grid';
+      toggleButton.textContent = 'Hide Samples';
+    } else {
+      gallery.style.display = 'none';
+      toggleButton.textContent = 'View Our Work';
+    }
+  });
+
+  // Lightbox functionality
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const close = document.querySelector('.close');
+
+  document.querySelectorAll('.gallery-container img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightbox.style.display = 'block';
+      lightboxImg.src = img.src;
+    });
+  });
+
+  close.addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
+
+  // Close lightbox when clicking outside the image
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      lightbox.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
